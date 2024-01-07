@@ -29,6 +29,7 @@ class _HomeVideoWidgetState extends ConsumerState<HomeVideoWidget> {
       ..initialize().then((value) {
         setState(() {});
         controller.play();
+        controller.setLooping(true);
       });
   }
 
@@ -69,63 +70,66 @@ class _HomeVideoWidgetState extends ConsumerState<HomeVideoWidget> {
                     bottom: 0,
                     child: Column(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Title",
+                                      style: textTheme.titleMedium!.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "Description" * 12,
+                                      style: textTheme.bodyMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
                                 children: [
-                                  Text(
-                                    "Title",
-                                    style: textTheme.titleMedium!.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                  _Profile(widget: widget),
+                                  24.height,
+                                  ColorFiltered(
+                                    colorFilter: ColorFilter.mode(
+                                        item.isLike
+                                            ? Colors.pink.shade700
+                                        : Colors.white,
+                                        BlendMode.srcIn,
+                                    ),
+                                    child: actionButton(
+                                        icon: Icons.favorite,
+                                        text: item.like,
+                                      onTap: () {
+                                          item.isLike = !item.isLike;
+                                          setState(() {
+                                            if (!item.isLike) {
+                                              item.like-=1;
+                                            } else {
+                                              item.like+=1;
+                                            }
+
+                                          });
+                                      }
+                                    ),
                                   ),
-                                  Text(
-                                    "Description" * 12,
-                                    style: textTheme.bodyMedium!
-                                        .copyWith(color: Colors.white),
-                                  ),
+                                  4.height,
+                                  actionButton(icon: Icons.comment, text: item.comment),
+                                  4.height,
+                                  actionButton(icon: Icons.bookmark, text: item.bookmark),
+                                  4.height,
+                                  actionButton(icon: Icons.share, text: item.share),
                                 ],
                               ),
-                            ),
-                            Column(
-                              children: [
-                                _Profile(widget: widget),
-                                24.height,
-                                ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                      item.isLike
-                                          ? Colors.pink.shade700
-                                      : Colors.white,
-                                      BlendMode.srcIn,
-                                  ),
-                                  child: actionButton(
-                                      icon: Icons.favorite,
-                                      text: item.like,
-                                    onTap: () {
-                                        item.isLike = !item.isLike;
-                                        setState(() {
-                                          if (!item.isLike) {
-                                            item.like-=1;
-                                          } else {
-                                            item.like+=1;
-                                          }
-
-                                        });
-                                    }
-                                  ),
-                                ),
-                                4.height,
-                                actionButton(icon: Icons.comment, text: item.comment),
-                                4.height,
-                                actionButton(icon: Icons.bookmark, text: item.bookmark),
-                                4.height,
-                                actionButton(icon: Icons.share, text: item.share),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         VideoProgressIndicator(
                           controller,
