@@ -159,7 +159,6 @@ class _HomeVideoWidgetState extends ConsumerState<HomeVideoWidget> {
 
 class _Profile extends StatelessWidget {
   const _Profile({
-    super.key,
     required this.widget,
   });
 
@@ -195,7 +194,7 @@ class _Profile extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.red,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   size: 16,
                 ),
