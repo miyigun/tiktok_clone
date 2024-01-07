@@ -1,7 +1,7 @@
 class VideoModel {
   final String url;
   String profilImage;
-  final int like;
+  int like;
   final int comment;
   final int bookmark;
   final int share;
